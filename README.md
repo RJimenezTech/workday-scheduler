@@ -1,2 +1,2 @@
 # workday-scheduler
-an interactive scheduler app or a busy workday
+an interactive scheduler app for a busy professional
