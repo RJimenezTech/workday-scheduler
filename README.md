@@ -4,27 +4,19 @@
 
 This project is an interactive workday scheduler app for busy professionals to keep track of daily tasks. 
 
-**Images of the project:**
+**Image of the project:**
 
 Initial Project Load:
 
 ![Default Screen](/assets/images/screengrab%20on%20load.png)
 
-Middle of Game:
-
-![Middle of the Game](/assets/images/screengrab%20middle%20game.png)
-
-High Scores:
-
-![High Scores](/assets/images/screengrab%20high%20scores%20.png)
-
 **Link to deployed project:**
-To start the app in your browser, visit the link below: 
-https://rjimeneztech.github.io/javascript-quizlet/
+<br>To start the app in your browser, visit the link below: 
+<br>https://rjimeneztech.github.io/workday-scheduler/
 
 ## Table of Contents
 
-This README isn't very long, so I don't elaborate on this too much.
+This README isn't very long, so I don't elaborate on these too much.
 
 * [Installation](#installation)
 * [Usage](#usage)
@@ -51,7 +43,7 @@ Thanks to the instructors at the Rice Full-Stack Web Development, BootCampSpot, 
 
 ### Badges
 
-![Twitter Follow](https://img.shields.io/twitter/follow/rjimeneztech?style=social)  ![GitHub followers](https://img.shields.io/github/followers/rjimeneztech?style=social)  ![GitHub Repo stars](https://img.shields.io/github/stars/rjimeneztech/rj-horiseon-accessibility-refactoring?style=social)  ![GitHub contributors](https://img.shields.io/github/contributors/rjimeneztech/rj-horiseon-accessibility-refactoring)  ![GitHub commit activity](https://img.shields.io/github/commit-activity/y/rjimeneztech/rj-horiseon-accessibility-refactoring)  ![GitHub top language](https://img.shields.io/github/languages/top/rjimeneztech/rj-horiseon-accessibility-refactoring)  
+![Twitter Follow](https://img.shields.io/twitter/follow/rjimeneztech?style=social)  ![GitHub followers](https://img.shields.io/github/followers/rjimeneztech?style=social)  ![GitHub Repo stars](https://img.shields.io/github/stars/rjimeneztech/rj-horiseon-accessibility-refactoring?style=social) <br> ![GitHub contributors](https://img.shields.io/github/contributors/rjimeneztech/rj-horiseon-accessibility-refactoring)  ![GitHub commit activity](https://img.shields.io/github/commit-activity/y/rjimeneztech/rj-horiseon-accessibility-refactoring)  ![GitHub top language](https://img.shields.io/github/languages/top/rjimeneztech/rj-horiseon-accessibility-refactoring)  
 
 For info on where I retrieved these cool badges, check out [shields.io](https://shields.io/).
 
