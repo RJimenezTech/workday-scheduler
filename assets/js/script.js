@@ -7,28 +7,45 @@ $("#currentDay").text(today);
 // WHEN I scroll down
 // THEN I am presented with time blocks for standard business hours
 // array that holds the hour blockes of the day that will by displayed
-// let hoursArray = ["9AM","10AM","11AM","12PM","1PM","2PM","3PM","4PM","5PM"];
-let hoursObjArray = [
-    {hour:"9AM",description:"free hour"},
-    {hour:"10AM",description:"free hour"},
-    {hour:"11AM",description:"free hour"},
-    {hour:"12PM",description:"free hour"},
-    {hour:"1PM",description:"free hour"},
-    {hour:"2PM",description:"free hour"},
-    {hour:"3PM",description:"free hour"},
-    {hour:"4PM",description:"free hour"},
-    {hour:"5PM",description:"free hour"}];
-console.log(hoursObjArray)
-// find container div and add "div" with "row" class
-// for as many hours in the day, add as many "row" divs with "col" divs for sections
-for (let i = 0; i < hoursObjArray.length; i++){
-    let thisHourNumOnly = hoursObjArray[i].hour.slice(0,-1).slice(0,-1).trim();
-    $(".container").append("<div class='row' data-hour='" + thisHourNumOnly + "'><div class='col-1'></div><div class='col-1 hour'>" + hoursObjArray[i].hour + "</div><div class='col-7 bg-dark description'>" + hoursObjArray[i].description +"</div><div class='col-1 saveBtn'></div><div class='col-1'></div></div>");
-};
+
+let defaultScheduleArray = [
+    {hour:"9",description:"9AM"},
+    {hour:"10",description:"10AM"},
+    {hour:"11",description:"11AM"},
+    {hour:"12",description:"12PM"},
+    {hour:"1",description:"1PM"},
+    {hour:"2",description:"2PM"},
+    {hour:"3",description:"3PM"},
+    {hour:"4",description:"4PM"},
+    {hour:"5",description:"5PM"}
+];
+// // setup local array on first pass 
+
+
+if (!localStorage.getItem("localScheduleArray")) {
+    localStorage.setItem("localScheduleArray", JSON.stringify(defaultScheduleArray));
+    let currentSchedule = JSON.parse(localStorage.getItem("localScheduleArray"));
+    $(".row").each(function(el) {
+        let thisHour = $(this).attr("data-hour");
+        console.log(thisHour);
+        $(this).find(".description").text(currentSchedule.find(el => el.hour === thisHour).description);
+    });
+    console.log("was empty")
+} else {
+    let currentSchedule = JSON.parse(localStorage.getItem("localScheduleArray"));
+    $(".row").each(function(el) {
+        let thisHour = $(this).attr("data-hour");
+        console.log(thisHour);
+        $(this).find(".description").text(currentSchedule.find(el => el.hour === thisHour).description);
+    });
+    console.log("was NOT empty")
+}
+
+
 
 // WHEN I view the time blocks for that day
 // THEN each time block is color-coded to indicate whether it is in the past, present, or future
-// function that checks each rows time and compares it with the current hour
+// function that changes class of description area at different hours
 let auditTime = function(el) {
     // given a row, retreieve its time
     let rowTime = el.attr("data-hour");
@@ -57,7 +74,7 @@ let auditTime = function(el) {
         el.find(".description").addClass("future").removeClass("bg-dark");
     }
 };
-// initiate audit once upon loading website
+// initiate audit at least once upon loading 
 $(".row").each(function(el) {
     auditTime($(this));
 });
@@ -68,24 +85,51 @@ setInterval(function() {
         auditTime($(this));
     })
 }, (1000 * 60) * 60)
-
 // WHEN I click into a time block
 // THEN I can enter an event
 let inputText = function(el) {
-    let textInput = $("<textarea>").addClass("col-7 description textarea").text("");
+    let textInput = $("<textarea>").addClass("col-8 description textarea").text("");
     $(this).replaceWith(textInput);
     textInput.trigger("focus");
-}
+};
+
 // WHEN I click the save button for that time block
 // THEN the text for that event is saved in local storage
-let saveInput = function() {
-    
-}
+let saveInput = function(event) {
+    // capture input text
+    let inputText = "bad";
+    // if description element is a textarea use .val
+    if ($(this).prev().val()) {
+        inputText = $(this).prev().val();
+    } else {
+    // if it is a div, use .text
+        inputText = $(this).prev().text();
+    }
+    // reference the HOUR of this row
+    let thisHour = $(this).parent().attr("data-hour");
+    // find the hour object in local storage
+    let currentSchedule = JSON.parse(localStorage.getItem("localScheduleArray"));
+    console.log(currentSchedule);
+    currentSchedule.find(el => el.hour === thisHour).description = inputText;
+    localStorage.setItem("localScheduleArray", JSON.stringify(currentSchedule));
+    // revert text area to normal div
+    let normalEl = $("<div>").addClass("col-8 description");
+    $(this).prev().replaceWith(normalEl);
+    // pull info that was just saved into local
+    $(this).prev().text(currentSchedule.find(el => el.hour === thisHour).description);
+    localStorage.setItem("localScheduleArray", JSON.stringify(currentSchedule));
+    // update time color for this row
+    auditTime($(this).parent());
+};
 
+// let revertOriginal = function() {
+//     let 
+// };
 // WHEN I refresh the page
 // THEN the saved events persist
+// populate descriptions based on localScheduleArray data
 
-// waiting for click on a description area
-$(".description").on("click",inputText);
-// waiting for click on save button
-$(".saveBtn").on("click",saveInput);
+
+$(".row").on("click",".description",inputText);
+$(".row").on("click",".saveBtn",saveInput);
+// $(".row").on("blur",".description",revertOriginal);
