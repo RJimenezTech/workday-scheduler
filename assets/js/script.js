@@ -83,10 +83,13 @@ setInterval(function() {
         auditTime($(this));
     })
 }, (1000 * 60) * 60)
+
 // WHEN I click into a time block
 // THEN I can enter an event
-let inputText = function(el) {
-    let textInput = $("<textarea>").addClass("col-8 col-lg-10 description textarea").text("");
+let inputText = function(event) {
+    let eventClass = $(event.target).attr("class");
+    let currentText = $(event.target).text();
+    let textInput = $("<textarea>").addClass(`${eventClass} textarea`).text(currentText);
     $(this).replaceWith(textInput);
     textInput.trigger("focus");
 };
@@ -113,7 +116,7 @@ let saveInput = function(event) {
     // update local storage with the schedule that has new input
     localStorage.setItem("localScheduleArray", JSON.stringify(currentSchedule));
     // revert text area to normal div
-    let normalEl = $("<div>").addClass("col-8 col-lg-10 description");
+    let normalEl = $("<div>").addClass("col-8 col-lg-10 pt-2 description");
     $(this).prev().replaceWith(normalEl);
     // pull info that was just saved into local
     $(this).prev().text(currentSchedule.find(el => el.hour === thisHour).description);
@@ -122,30 +125,5 @@ let saveInput = function(event) {
     auditTime($(this).parent());
 };
 
-let revertOriginal = function() {
-        // reference the HOUR of this row
-        let thisHour = $(this).parent().attr("data-hour");
-        // retreive the local storage schedule info
-        let currentSchedule = JSON.parse(localStorage.getItem("localScheduleArray"));
-        // revert text area to normal div
-        let normalEl = $("<div>").addClass("col-8 col-lg-10 description");
-        console.log(normalEl);
-         let originalText = currentSchedule.find(el => el.hour === thisHour).description;
-        console.log(originalText);
-        $(this).replaceWith(normalEl);
-        $(this).text(originalText);
-
-        // $(this).find(".textarea").replaceWith(normalEl);
-        // $(this).find(".description").text(originalText);
-        // find the corresponding element in the schedule array that matches this hour
-        // and assign the origina input to my normal div
-        // this reverts the original info and discards the input text
-
-        // update time color for this row
-        auditTime($(this).parent());
-};
-
-
 $(".row").on("click",".description",inputText);
 $(".row").on("click",".saveBtn",saveInput);
-$(".row").on("blur",".description",revertOriginal);

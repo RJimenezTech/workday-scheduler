@@ -6,9 +6,9 @@ This project is an interactive workday scheduler app for busy professionals to k
 
 **Images of the project:**
 
-A New Game:
+Initial Project Load:
 
-![New Game](/assets/images/screengrab_unstarted_game.png)
+![Default Screen](/assets/images/screengrab%20on%20load.png)
 
 Middle of Game:
 
